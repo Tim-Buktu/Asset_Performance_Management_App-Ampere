@@ -1,0 +1,365 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   NOVA ENERGY DESIGN SYSTEM - Dark Mode
+   ============================================ */
+
+@layer base {
+  :root {
+    /* CSS Custom Properties for Dark Mode Theming */
+    --sun-green-primary: #6366F1;
+    --sun-green-glow: rgba(99, 102, 241, 0.25);
+    --surface-base: #0F172A;
+    --surface-elevated: #1E293B;
+    --surface-border: #334155;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --accent-cyan: #22D3EE;
+    --accent-cyan-glow: rgba(34, 211, 238, 0.2);
+  }
+
+  * {
+    @apply border-surface-300;
+  }
+
+  body {
+    @apply bg-surface-100 text-surface-900 font-display;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+      linear-gradient(to bottom, #0B1120 0%, #0F172A 100%);
+    min-height: 100vh;
+  }
+
+  /* Custom scrollbar styling - Dark Mode */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-200;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-surface-500;
+  }
+}
+
+@layer components {
+  /* ============================================
+     Glass Card Component - Dark Mode
+     ============================================ */
+  .glass-card {
+    @apply relative overflow-hidden;
+    background: linear-gradient(160deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.75) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(71, 85, 105, 0.5);
+    border-top-color: rgba(100, 116, 139, 0.6);
+    @apply rounded-2xl;
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.4),
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(148, 163, 184, 0.06);
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Top accent line — brand identity stripe */
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(99, 102, 241, 0.6) 30%,
+      rgba(34, 211, 238, 0.5) 70%,
+      transparent 100%
+    );
+    border-radius: 16px 16px 0 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Subtle inner-glow on hover */
+  .glass-card::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none rounded-2xl opacity-0 transition-opacity duration-300;
+    box-shadow: inset 0 0 30px rgba(99, 102, 241, 0.07);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(99, 102, 241, 0.45);
+    border-top-color: rgba(129, 140, 248, 0.7);
+    background: linear-gradient(160deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%);
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.4),
+      0 12px 32px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(99, 102, 241, 0.15),
+      inset 0 1px 0 rgba(148, 163, 184, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .glass-card:hover::after {
+    @apply opacity-100;
+  }
+
+  /* ============================================
+     Violet Glow Border Effect
+     ============================================ */
+  .green-glow-border,
+  .amber-glow-border {
+    @apply relative;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+  }
+
+  .green-glow-border::after,
+  .amber-glow-border::after {
+    content: '';
+    @apply absolute -inset-px pointer-events-none;
+    @apply rounded-2xl;
+    @apply opacity-0 transition-opacity duration-300;
+    box-shadow:
+      0 0 20px rgba(99, 102, 241, 0.2),
+      inset 0 0 20px rgba(99, 102, 241, 0.05);
+  }
+
+  .green-glow-border:hover::after,
+  .amber-glow-border:hover::after {
+    @apply opacity-100;
+  }
+
+  /* ============================================
+     Pulse Animation Ring
+     ============================================ */
+  .pulse-ring {
+    @apply absolute rounded-full;
+    background: rgba(99, 102, 241, 0.25);
+    @apply animate-ring-expand;
+  }
+
+  /* ============================================
+     Status Indicator Base - Dark Mode
+     ============================================ */
+  .status-dot {
+    @apply relative inline-flex items-center justify-center;
+    @apply w-3 h-3 rounded-full;
+  }
+
+  .status-dot::before {
+    content: '';
+    @apply absolute inset-0;
+    @apply rounded-full;
+    @apply animate-ping;
+  }
+
+  .status-dot.healthy {
+    @apply bg-status-healthy;
+  }
+
+  .status-dot.healthy::before {
+    @apply bg-status-healthy/40;
+    animation-duration: 3s;
+  }
+
+  .status-dot.warning {
+    @apply bg-status-warning;
+  }
+
+  .status-dot.warning::before {
+    @apply bg-status-warning/40;
+    animation-duration: 1.5s;
+  }
+
+  .status-dot.critical {
+    @apply bg-status-critical;
+  }
+
+  .status-dot.critical::before {
+    @apply bg-status-critical/40;
+    animation-duration: 0.5s;
+  }
+
+  /* ============================================
+     Data Grid Background Pattern - Dark Mode
+     ============================================ */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* ============================================
+     Typography Utilities - Dark Mode
+     ============================================ */
+  .text-gradient-green,
+  .text-gradient-amber {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #818CF8 0%, #6366F1 50%, #22D3EE 100%);
+  }
+
+  .text-gradient-silver {
+    @apply bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-surface-600 via-surface-700 to-surface-600;
+  }
+
+  /* ============================================
+     Node Connection Lines - Dark Mode
+     ============================================ */
+  .node-connector {
+    @apply absolute;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(99, 102, 241, 0.4) 20%,
+      rgba(99, 102, 241, 0.7) 50%,
+      rgba(99, 102, 241, 0.4) 80%,
+      transparent 100%
+    );
+    height: 2px;
+  }
+
+  .node-connector::after {
+    content: '';
+    @apply absolute right-0 top-1/2 -translate-y-1/2;
+    @apply w-2 h-2 rounded-full;
+    @apply bg-sun-green-400;
+    @apply shadow-glow-green;
+  }
+
+  /* ============================================
+     Shimmer Loading Effect - Dark Mode
+     ============================================ */
+  .shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(99, 102, 241, 0.08) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+
+  /* ============================================
+     Button System - Dark Mode
+     ============================================ */
+
+  /* Primary: violet brand */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-4 py-2 rounded-xl text-sm font-semibold;
+    @apply text-white;
+    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
+    border: 1px solid rgba(99, 102, 241, 0.6);
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0), 0 2px 4px rgba(0,0,0,0.3);
+    @apply transition-all duration-200;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #818CF8 0%, #6366F1 100%);
+    box-shadow: 0 0 16px rgba(99, 102, 241, 0.35), 0 2px 4px rgba(0,0,0,0.3);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* Secondary: visible ghost with distinct surface */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-4 py-2 rounded-xl text-sm font-medium;
+    @apply text-surface-800;
+    background: rgba(51, 65, 85, 0.7);
+    border: 1px solid rgba(100, 116, 139, 0.5);
+    box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.08);
+    @apply transition-all duration-200;
+  }
+  .btn-secondary:hover {
+    @apply text-surface-900;
+    background: rgba(71, 85, 105, 0.8);
+    border-color: rgba(129, 140, 248, 0.4);
+    box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.1), 0 0 8px rgba(99, 102, 241, 0.15);
+  }
+
+  /* Danger */
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-4 py-2 rounded-xl text-sm font-semibold;
+    @apply text-white;
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    border: 1px solid rgba(248, 113, 113, 0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    @apply transition-all duration-200;
+  }
+  .btn-danger:hover {
+    box-shadow: 0 0 16px rgba(248, 113, 113, 0.3), 0 2px 4px rgba(0,0,0,0.3);
+    transform: translateY(-1px);
+  }
+
+  /* ============================================
+     Dark Mode Specific Utilities
+     ============================================ */
+  .card-elevated {
+    background: rgba(30, 41, 59, 0.8);
+    @apply border border-surface-300 rounded-xl shadow-card;
+  }
+
+  .section-header {
+    @apply flex items-center gap-3 mb-4;
+  }
+
+  .section-header .accent-bar {
+    @apply w-1 h-6 rounded-full;
+  }
+
+  .section-header h3 {
+    @apply text-lg font-semibold text-surface-900;
+  }
+}
+
+@layer utilities {
+  /* Gradient text utility */
+  .gradient-text {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effects - Dark Mode */
+  .glow-sm {
+    filter: drop-shadow(0 0 8px var(--sun-green-glow));
+  }
+
+  .glow-md {
+    filter: drop-shadow(0 0 16px var(--sun-green-glow));
+  }
+
+  .glow-lg {
+    filter: drop-shadow(0 0 32px var(--sun-green-glow));
+  }
+
+  /* Dark mode text utilities */
+  .text-primary {
+    @apply text-surface-900;
+  }
+
+  .text-secondary {
+    @apply text-surface-600;
+  }
+
+  .text-muted {
+    @apply text-surface-500;
+  }
+}
