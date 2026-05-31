@@ -15,7 +15,7 @@ Renewable operators don't lose money because the sun stops shining. They lose it
 - The **field technician** drives out with no context, no SLA clock, and no proof the job got done.
 - The **finance team** can't turn clean megawatts into sellable **Renewable Energy Certificates** because a PPA scan is missing from a folder.
 
-Each team has its own spreadsheet. None of them agree. **SUN Energy makes them share one source of truth.**
+Each team has its own spreadsheet. None of them agree. **makes them share one source of truth.**
 
 ---
 
